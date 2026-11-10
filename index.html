@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    h1{
+        color: green;
+        text-align: center;
+    }
+    input{
+        width: 300px;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid black;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input:focus{
+        border-color: green;
+    }
+    button{
+        background-color: green;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .emptytask{
+        margin-top: 15px;
+        padding: 10px;
+        background-color: lightgreen;
+        border: 1px solid black;
+        border-radius: 10px;
+        width: 200px;
+        min-height: 100px;
+        margin-bottom: 10px;
+    }
+</style>
+<body>
+    <h1>Student Study Planner</h1>
+    <input type="text" placeholder="Enter Your Task" id="task">
+    <input type="text" placeholder="Enter Your Subject" id="subject">
+    <button onclick="addTask()">Add Task</button>
+    <div class="emptytask" id="emptytask"></div>
+    
+
+
+    <script>
+        function addTask(){
+            let task = document.getElementById("task").value;
+            let subject = document.getElementById("subject").value;
+            if(task =="" || subject ==""){
+                alert("fill this field");
+            }
+            else{
+                document.getElementsByClassName("emptytask")[0].innerHTML+=`<div>${task} ${subject}</div>`;
+            }
+            
+        }
+    </script>
+</body>
+</html>
