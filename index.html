@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <style>
+    body {
+    text-align: center;
+}
     h1{
         color: green;
         text-align: center;
@@ -22,30 +25,44 @@
         border-color: green;
     }
     button{
-        background-color: green;
-        color: white;
+        background-color: white;
+        color: black;
         padding: 10px 20px;
-        border: none;
+        border: 1px solid black;
         border-radius: 5px;
         cursor: pointer;
     }
     .emptytask{
         margin-top: 15px;
         padding: 10px;
-        background-color: lightgreen;
+        background-color: white;
         border: 1px solid black;
         border-radius: 10px;
-        width: 200px;
+        width: 500px;
         min-height: 100px;
         margin-bottom: 10px;
+         margin: 15px auto;
     }
+    .completed{
+    text-decoration: line-through;
+}
+.task-list {
+    font-size: 18px;
+    padding: 12px;
+    margin-bottom: 10px;
+     text-align: center;
+}
 </style>
 <body>
     <h1>Student Study Planner</h1>
     <input type="text" placeholder="Enter Your Task" id="task">
     <input type="text" placeholder="Enter Your Subject" id="subject">
     <button onclick="addTask()">Add Task</button>
+    <p id="total">Total Tasks: 0</p>
+    <button onclick="pending()">pending</button>
+    <button onclick="completed()">completed</button>
     <div class="emptytask" id="emptytask"></div>
+   
     
 
 
@@ -53,14 +70,53 @@
         function addTask(){
             let task = document.getElementById("task").value;
             let subject = document.getElementById("subject").value;
+           
             if(task =="" || subject ==""){
                 alert("fill this field");
             }
             else{
-                document.getElementsByClassName("emptytask")[0].innerHTML+=`<div>${task} ${subject}</div>`;
+                document.getElementsByClassName("emptytask")[0].innerHTML+=`<div class="task-list">${task} ${subject} <button onclick="deleteTask(this)">Delete</button> <button onclick="complete(this)">complete</button> </div> `;
             }
-            
+
+            totalUpdate();
         }
+        function deleteTask(btn){
+    btn.parentElement.remove();
+     totalUpdate();
+   
+}
+function complete(btn){
+    btn.parentElement.style.textDecoration="line-through";
+    btn.parentElement.classList.add("completed");
+    alert(btn.parentElement.className);
+}  
+function pending(){
+    let tasklist = document.getElementsByClassName("task-list");
+    for (i=0;i<tasklist.length;i++){
+        if(tasklist[i].classList.contains("completed")){
+            tasklist[i].style.display = "none";
+        }
+        else{
+            tasklist[i].style.display = "block";
+        }
+    }
+}    
+function completed(){
+    let tasklist = document.getElementsByClassName("task-list");
+    for(i=0;i<tasklist.length;i++){
+        if(tasklist[i].classList.contains("completed")){
+            tasklist[i].style.display="block";
+        }
+         else{
+            tasklist[i].style.display = "none";
+        }
+    }
+}  
+function totalUpdate(){
+    let tasklist = document.getElementsByClassName("task-list");
+   let count = tasklist.length;
+   document.getElementById("total").innerHTML= "Total Tasks: " + count;
+}
     </script>
 </body>
 </html>
